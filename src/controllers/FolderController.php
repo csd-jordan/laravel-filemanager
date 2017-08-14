@@ -22,8 +22,10 @@ class FolderController extends LfmController
             $folder_types['user'] = 'root';
         }
 
-        if ((parent::allowMultiUser() && parent::enabledShareFolder()) || !parent::allowMultiUser()) {
-            $folder_types['share'] = 'shares';
+        if (auth()->user()->isSuper()) {
+            if ((parent::allowMultiUser() && parent::enabledShareFolder()) || !parent::allowMultiUser()) {
+                $folder_types['share'] = 'shares';
+            }
         }
 
         foreach ($folder_types as $folder_type => $lang_key) {
